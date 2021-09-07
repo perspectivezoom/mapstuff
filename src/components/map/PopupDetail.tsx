@@ -2,6 +2,11 @@ import usePokemonDetailResource from "../../resources/usePokemonDetailResource";
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
+  container: {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column"
+  },
   image: {
     width: 96
   },
@@ -19,7 +24,7 @@ export default function PopupDetail({ itemID }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const pokemonDetail = usePokemonDetailResource(itemID);
   return (
-    <div>
+    <div className={classes.container}>
       <h1 className={classes.title}>{pokemonDetail.name}</h1>
       <img
         alt={pokemonDetail.name}

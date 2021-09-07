@@ -1,6 +1,4 @@
-import usePokemonListResource, {
-  PokemonListEntry
-} from "../../resources/usePokemonListResource";
+import { PokemonListEntry } from "../../resources/usePokemonListResource";
 import React from "react";
 import { MapContainer, Marker, Popup, TileLayer, Tooltip } from "react-leaflet";
 import PopupDetail from "./PopupDetail";
@@ -19,10 +17,12 @@ const INITIAL_POSITION = {
 };
 const INITIAL_ZOOM = 12;
 
-export default function MainMap() {
+type Props = {
+  pokemonList: PokemonListEntry[];
+};
+
+export default function MainMap({ pokemonList }: Props) {
   const classes = useStyles();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [pokemonList, _refetchPokemonList] = usePokemonListResource();
   return (
     <MapContainer
       center={INITIAL_POSITION}
@@ -36,7 +36,7 @@ export default function MainMap() {
       {pokemonList.map(({ latLng, id, name }: PokemonListEntry) => (
         <Marker key={name} position={latLng}>
           <Tooltip>{name}</Tooltip>
-          <Popup>
+          <Popup minWidth={128}>
             <React.Suspense fallback="Loading...">
               <PopupDetail itemID={id} />
             </React.Suspense>

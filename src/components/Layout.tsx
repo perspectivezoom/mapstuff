@@ -1,5 +1,5 @@
 import React from "react";
-import MainMap from "./map/MainMap";
+import MainMapContainer from "./map/MainMapContainer";
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
@@ -17,7 +17,7 @@ export default function Layout() {
         <h1>Mapstuff</h1>
       </div>
       <React.Suspense fallback="Loading...">
-        <MainMap />
+        <MainMapContainer />
       </React.Suspense>
     </div>
   );
