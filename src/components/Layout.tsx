@@ -1,7 +1,8 @@
 import { createUseStyles } from "react-jss";
+import MainMap from "./map/MainMap";
 
 const useStyles = createUseStyles({
-  app: {
+  title: {
     fontFamily: "sans-serif",
     textAlign: "center"
   }
@@ -10,9 +11,11 @@ const useStyles = createUseStyles({
 export default function Layout() {
   const classes = useStyles();
   return (
-    <div className={classes.app}>
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
+    <div>
+      <div className={classes.title}>
+        <h1>Mapstuff</h1>
+      </div>
+      <MainMap />
     </div>
   );
 }
