@@ -1,4 +1,7 @@
-import { MapContainer, TileLayer } from "react-leaflet";
+import usePokemonListResource, {
+  PokemonListEntry
+} from "../../resources/usePokemonListResource";
+import { MapContainer, TileLayer, Tooltip, Marker } from "react-leaflet";
 import { createUseStyles } from "react-jss";
 import "leaflet/dist/leaflet.css";
 
@@ -16,6 +19,8 @@ const INITIAL_ZOOM = 12;
 
 export default function MainMap() {
   const classes = useStyles();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [pokemonList, _refetchPokemonList] = usePokemonListResource();
   return (
     <MapContainer
       center={INITIAL_POSITION}
@@ -26,6 +31,11 @@ export default function MainMap() {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      {pokemonList.map(({ latLng, name }: PokemonListEntry) => (
+        <Marker key={name} position={latLng}>
+          <Tooltip>{name}</Tooltip>
+        </Marker>
+      ))}
     </MapContainer>
   );
 }
