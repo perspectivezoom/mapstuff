@@ -21,7 +21,6 @@ type Props = {
 
 export default function PopupDetail({ itemID }: Props) {
   const classes = useStyles();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const pokemonDetail = usePokemonDetailResource(itemID);
   return (
     <div className={classes.container}>

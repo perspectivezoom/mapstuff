@@ -34,7 +34,7 @@ export default function MainMap({ pokemonList }: Props) {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {pokemonList.map(({ latLng, id, name }: PokemonListEntry) => (
-        <Marker key={name} position={latLng}>
+        <Marker key={id} position={latLng}>
           <Tooltip>{name}</Tooltip>
           <Popup minWidth={128}>
             <React.Suspense fallback="Loading...">
