@@ -14,7 +14,7 @@ export type PokemonListEntry = {
   url: string;
 };
 
-const INITIAL_LIMIT = 3;
+export const INITIAL_LIMIT = 3;
 const MIN_LAT = 37.75;
 const MAX_LAT = 37.8;
 const MIN_LNG = -122.5;
@@ -36,7 +36,7 @@ function processEntry(result: { name: string; url: string }): PokemonListEntry {
 
 export default function usePokemonListResource(): [
   PokemonListEntry[],
-  () => void
+  (limit: number) => void
 ] {
   const [pokemonListReader, refetchPokemonList] = useAsyncResource(
     fetchPokemonList,
@@ -44,8 +44,5 @@ export default function usePokemonListResource(): [
   );
   const response = pokemonListReader();
   const entries = response["results"].map(processEntry);
-  function incrementPokemonList() {
-    refetchPokemonList(entries.length + 1);
-  }
-  return [entries, incrementPokemonList];
+  return [entries, refetchPokemonList];
 }

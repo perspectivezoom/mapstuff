@@ -4,13 +4,13 @@ import MainMap from "./MainMap";
 import StatusBar from "./StatusBar";
 
 export default function MainMapContainer() {
-  const [pokemonList, incrementPokemonList] = usePokemonListResource();
+  const [pokemonList, refetchPokemonList] = usePokemonListResource();
 
   return (
     <div>
       <StatusBar
         count={pokemonList.length}
-        incrementPokemonList={incrementPokemonList}
+        refetchPokemonList={refetchPokemonList}
       />
       <MainMap pokemonList={pokemonList} />
     </div>
