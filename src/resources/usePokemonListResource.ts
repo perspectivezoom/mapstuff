@@ -8,6 +8,7 @@ function fetchPokemonList(limit: number) {
 }
 
 export type PokemonListEntry = {
+  id: number;
   latLng: LatLngExpression;
   name: string;
   url: string;
@@ -18,13 +19,16 @@ const MAX_LAT = 37.8;
 const MIN_LNG = -122.5;
 const MAX_LNG = -122.4;
 
-function appendLatLng(result: { name: string; url: string }): PokemonListEntry {
+function processEntry(result: { name: string; url: string }): PokemonListEntry {
   const latLng = {
     lat: MIN_LAT + Math.random() * (MAX_LAT - MIN_LAT),
     lng: MIN_LNG + Math.random() * (MAX_LNG - MIN_LNG)
   };
+  const match = result.url.match(/pokemon\/(\d+)/);
+  const id = match != null ? parseInt(match[1], 10) : 0;
   return {
     ...result,
+    id,
     latLng
   };
 }
@@ -38,6 +42,6 @@ export default function usePokemonListResource(): [
     4
   );
   const response = pokemonListReader();
-  const entries = response["results"].map(appendLatLng);
+  const entries = response["results"].map(processEntry);
   return [entries, refetchPokemonList];
 }

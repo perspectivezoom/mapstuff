@@ -1,7 +1,9 @@
 import usePokemonListResource, {
   PokemonListEntry
 } from "../../resources/usePokemonListResource";
-import { MapContainer, TileLayer, Tooltip, Marker } from "react-leaflet";
+import React from "react";
+import { MapContainer, Marker, Popup, TileLayer, Tooltip } from "react-leaflet";
+import PopupDetail from "./PopupDetail";
 import { createUseStyles } from "react-jss";
 import "leaflet/dist/leaflet.css";
 
@@ -31,9 +33,14 @@ export default function MainMap() {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {pokemonList.map(({ latLng, name }: PokemonListEntry) => (
+      {pokemonList.map(({ latLng, id, name }: PokemonListEntry) => (
         <Marker key={name} position={latLng}>
           <Tooltip>{name}</Tooltip>
+          <Popup>
+            <React.Suspense fallback="Loading...">
+              <PopupDetail itemID={id} />
+            </React.Suspense>
+          </Popup>
         </Marker>
       ))}
     </MapContainer>
